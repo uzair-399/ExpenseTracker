@@ -1,18 +1,17 @@
 import { View, Text, FlatList } from "react-native";
 import React from "react";
+import ExpensesSummary from "../ExpensesSummary";
 
-interface expensesOutput {
-  expenses: Array<any>; // Replace with your actual expense type
-}
-const ExpensesOutput = ({ expenses }: expensesOutput) => {
+import { ExpensesOutputProps } from "../../types";
+import ExpensesList from "../ExpensesList";
+
+function ExpensesOutput() {
   return (
     <View>
-      <View>
-        <Text>last 7 days</Text>
-        <Text>$188.99</Text>
-      </View>
+      <ExpensesSummary />
+      <ExpensesList />
     </View>
   );
-};
+}
 
 export default ExpensesOutput;

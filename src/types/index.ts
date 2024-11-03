@@ -84,3 +84,9 @@ export type MyBannerProps = {
   touchable?: boolean;
   onPress?: () => void;
 };
+
+export type ExpensesListProps = {};
+export type ExpensesSummaryProps = {};
+export type ExpensesOutputProps = {
+  expenses?: string;
+};
