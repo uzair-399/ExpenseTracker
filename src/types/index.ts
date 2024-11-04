@@ -86,7 +86,18 @@ export type MyBannerProps = {
 };
 
 export type ExpensesListProps = {};
-export type ExpensesSummaryProps = {};
+export type ExpensesSummaryProps = {
+  periodName?: string;
+  expenses?: ExpenseItem[];
+};
 export type ExpensesOutputProps = {
-  expenses?: string;
+  expenses?: string[];
+  expensesPeriod?: string;
+};
+
+export type ExpenseItem = {
+  id: string;
+  description: string;
+  amount: number;
+  date: Date;
 };

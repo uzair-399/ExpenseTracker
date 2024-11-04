@@ -4,11 +4,12 @@ import ExpensesSummary from "../ExpensesSummary";
 
 import { ExpensesOutputProps } from "../../types";
 import ExpensesList from "../ExpensesList";
+import { DummyData } from "../../constants/DummyData";
 
-function ExpensesOutput() {
+function ExpensesOutput({ expensesPeriod }: ExpensesOutputProps) {
   return (
     <View>
-      <ExpensesSummary />
+      <ExpensesSummary expenses={DummyData} periodName={expensesPeriod} />
       <ExpensesList />
     </View>
   );
