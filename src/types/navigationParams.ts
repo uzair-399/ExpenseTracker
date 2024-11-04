@@ -1,7 +1,7 @@
 // import { NavigatorScreenParams } from "@react-navigation/native";
 
 export type RootStackParamsList = {
-  ManageExpense: undefined;
+  ManageExpense: { expenseId?: string } | undefined; // Allow expenseId as an optional parameter
   // D1Nav: NavigatorScreenParams<D1ParamsList>;
 };
 
@@ -12,7 +12,7 @@ export type BottomTabParamsList = {
 
 // export type D1ParamsList = {
 //   Profile: undefined;
-//   Favorite: undefined; //wishlist
+//   Favorite: undefined; // wishlist
 //   OrderHistory: undefined;
 //   DeleteAccount: undefined;
 //   // add more screens likewise

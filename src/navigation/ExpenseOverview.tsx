@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 function ExpenseOverview() {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         headerTintColor: "white", // neeche wala comment isko refer kr rha
         tabBarStyle: {
@@ -18,9 +18,16 @@ function ExpenseOverview() {
         },
         tabBarActiveTintColor: GlobalStyles.colors.accent500,
         headerRight: ({ tintColor }) => {
-          return <MyIcon name="add" size={24} color={tintColor} />; //tint color is exposed by default which is defined earlier
+          return (
+            <MyIcon
+              name="add"
+              size={24}
+              color={tintColor} //tint color is exposed by default which is defined earlier
+              onPress={() => navigation.navigate("ManageExpense")}
+            />
+          );
         },
-      }}
+      })}
     >
       <Tab.Screen
         name="RecentExpenses"

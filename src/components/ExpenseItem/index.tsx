@@ -4,13 +4,29 @@ import MyText from "../MyText";
 import { ExpenseItemProps } from "../../types";
 import { GlobalStyles } from "../../constants/styles";
 import { getFormattedDate } from "../../utils/date";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+  BottomTabParamsList,
+  RootStackParamsList,
+} from "../../types/navigationParams";
 
-function ExpenseItem({ description, date, amount }: ExpenseItemProps) {
-  // Format date to a readable string, e.g., "YYYY-MM-DD" or "MM/DD/YYYY"
-  //   const formattedDate = date?.toLocaleDateString();
+type ManageExpensepNavigationProps = NativeStackScreenProps<
+  RootStackParamsList & BottomTabParamsList,
+  "ManageExpense"
+>;
+function ExpenseItem({ id, description, date, amount }: ExpenseItemProps) {
+  const navigation =
+    useNavigation<ManageExpensepNavigationProps["navigation"]>();
+  function expensePressHandler() {
+    navigation.navigate("ManageExpense", { expenseId: id });
+  }
 
   return (
-    <Pressable>
+    <Pressable
+      onPress={expensePressHandler}
+      style={({ pressed }) => pressed && styles.pressed}
+    >
       <View style={styles.expenseItem}>
         <View>
           <MyText
@@ -50,6 +66,9 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.4,
+  },
+  pressed: {
+    opacity: 0.75,
   },
   description: {
     marginBottom: 4,
