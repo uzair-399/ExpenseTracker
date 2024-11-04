@@ -7,7 +7,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { EyeClosed } from "../../assets";
 import { useTheme } from "@react-navigation/native";
 import MyText from "../MyText";
 
@@ -50,7 +49,7 @@ function MyInput({
             onPress={() => setShowPassword(!showPassword)}
             style={{ marginLeft: -20 }}
           >
-            {showPassword ? <EyeClosed /> : <EyeClosed />}
+            {/* {showPassword ? <EyeClosed /> : <EyeClosed />} */}
           </Pressable>
         )}
       </View>

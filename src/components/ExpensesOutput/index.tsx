@@ -10,7 +10,7 @@ function ExpensesOutput({ expensesPeriod }: ExpensesOutputProps) {
   return (
     <View>
       <ExpensesSummary expenses={DummyData} periodName={expensesPeriod} />
-      <ExpensesList />
+      <ExpensesList expenses={DummyData} />
     </View>
   );
 }

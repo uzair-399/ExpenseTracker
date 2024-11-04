@@ -85,7 +85,9 @@ export type MyBannerProps = {
   onPress?: () => void;
 };
 
-export type ExpensesListProps = {};
+export type ExpensesListProps = {
+  expenses?: ExpenseItem[];
+};
 export type ExpensesSummaryProps = {
   periodName?: string;
   expenses?: ExpenseItem[];

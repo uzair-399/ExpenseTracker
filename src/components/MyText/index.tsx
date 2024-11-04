@@ -1,16 +1,7 @@
 import React, { memo } from "react";
 import { Text, TextStyle, TextProps } from "react-native";
-import { useTheme } from "@react-navigation/native";
 
 import { MyTextProps } from "../../types/index";
-
-type Fonts =
-  | "Inter-Bold"
-  | "Inter-SemiBold"
-  | "Inter-Medium"
-  | "Inter-Regular"
-  | "Inter-Light"
-  | "Inter-Regular";
 
 function MyText({
   text,
@@ -21,28 +12,10 @@ function MyText({
   style,
   numberOfLines,
 }: MyTextProps & TextProps) {
-  const theme = useTheme();
-  const getFontFamily = (weight: string): Fonts => {
-    switch (weight) {
-      case "700":
-        return "Inter-Bold";
-      case "600":
-        return "Inter-SemiBold";
-      case "500":
-        return "Inter-Medium";
-      case "400":
-        return "Inter-Regular";
-      case "300":
-        return "Inter-Light";
-      default:
-        return "Inter-Regular";
-    }
-  };
   const textStyle: TextStyle = {
-    color: textColor || theme.colors.text,
+    color: textColor || "black",
     fontWeight: weight || "normal",
     fontSize: size || 14,
-    fontFamily: weight ? getFontFamily(weight) : "Inter-Regular",
   };
 
   return (
