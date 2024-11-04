@@ -63,6 +63,7 @@ export interface MyInputProps {
 
 export interface MyButtonProps {
   label?: string;
+  mode?: string;
   onPress?: () => void;
   textColor?: string;
   backgroundColor?: ColorValue | undefined | string;
