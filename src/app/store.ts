@@ -1,12 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-
-import ThemeReducer from "../features/themeSlice";
-// import UserReducer from "features/userSlice";
-
+import expenseReducer from "./ExpenseSlice";
 export const store = configureStore({
   reducer: {
-    theme: ThemeReducer,
-    // user: UserReducer,
+    expense: expenseReducer,
   },
 });
 
