@@ -3,10 +3,11 @@ import React from "react";
 import MyText from "../MyText";
 import { ExpenseItemProps } from "../../types";
 import { GlobalStyles } from "../../constants/styles";
+import { getFormattedDate } from "../../utils/date";
 
 function ExpenseItem({ description, date, amount }: ExpenseItemProps) {
   // Format date to a readable string, e.g., "YYYY-MM-DD" or "MM/DD/YYYY"
-  const formattedDate = date?.toLocaleDateString();
+  //   const formattedDate = date?.toLocaleDateString();
 
   return (
     <Pressable>
@@ -21,7 +22,7 @@ function ExpenseItem({ description, date, amount }: ExpenseItemProps) {
             {description}
           </MyText>
           <MyText textColor={GlobalStyles.colors.primary50}>
-            {formattedDate}
+            {getFormattedDate(date)}
           </MyText>
         </View>
         <View style={styles.amountContainer}>
