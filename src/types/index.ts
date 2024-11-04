@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Theme } from "@react-navigation/native";
 import {
   ColorValue,
@@ -70,6 +71,12 @@ export interface MyButtonProps {
   key?: string;
   chevron?: boolean;
   disabled?: boolean;
+}
+export interface MyIconProps {
+  name?: keyof typeof Ionicons.glyphMap;
+  size?: number;
+  color?: string;
+  onPress?: () => void;
 }
 
 export type categoryProps = {
