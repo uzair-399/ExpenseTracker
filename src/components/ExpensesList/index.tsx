@@ -1,7 +1,7 @@
 import { FlatList, Text } from "react-native";
 import React from "react";
-
 import { ExpensesListProps } from "../../types";
+import ExpenseItem from "../ExpenseItem";
 
 type renderExpenseProps = {
   item: {
@@ -12,8 +12,8 @@ type renderExpenseProps = {
   };
 };
 
-function renderExpenseItem({ item }: renderExpenseProps) {
-  return <Text>{item.description}</Text>;
+function renderExpenseItem(itemData: renderExpenseProps) {
+  return <ExpenseItem {...itemData.item} />;
 }
 
 function ExpensesList({ expenses }: ExpensesListProps) {
@@ -21,7 +21,7 @@ function ExpensesList({ expenses }: ExpensesListProps) {
     <FlatList
       data={expenses}
       renderItem={renderExpenseItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item, index) => item.id ?? index.toString()}
     />
   );
 }

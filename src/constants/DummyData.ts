@@ -1,6 +1,6 @@
-import { ExpenseItem } from "../types";
+import { ExpenseItemProps } from "../types";
 
-export const DummyData: ExpenseItem[] = [
+export const DummyData: ExpenseItemProps[] = [
   {
     id: "e1",
     description: "A book",
@@ -15,7 +15,7 @@ export const DummyData: ExpenseItem[] = [
     date: new Date("2023-10-05"),
   },
   {
-    id: "e4",
+    id: "e3",
     description: "A chair",
     amount: 40.99,
     date: new Date("2024-01-03"),

@@ -6,7 +6,7 @@ import MyText from "../MyText";
 
 function ExpensesSummary({ periodName, expenses }: ExpensesSummaryProps) {
   const expensesSum = expenses?.reduce((sum, expense) => {
-    return sum + expense.amount;
+    return sum + (expense.amount ?? 0); // Use 0 if amount is undefined
   }, 0);
 
   return (

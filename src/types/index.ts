@@ -86,20 +86,20 @@ export type MyBannerProps = {
 };
 
 export type ExpensesListProps = {
-  expenses?: ExpenseItem[];
+  expenses?: ExpenseItemProps[];
 };
 export type ExpensesSummaryProps = {
   periodName?: string;
-  expenses?: ExpenseItem[];
+  expenses?: ExpenseItemProps[];
 };
 export type ExpensesOutputProps = {
   expenses?: string[];
   expensesPeriod?: string;
 };
 
-export type ExpenseItem = {
-  id: string;
-  description: string;
-  amount: number;
-  date: Date;
+export type ExpenseItemProps = {
+  id?: string | undefined;
+  description?: string | undefined;
+  amount?: number | undefined;
+  date?: Date | undefined;
 };
