@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React from "react";
 import { ExpensesSummaryProps } from "../../types";
 import { GlobalStyles } from "../../constants/styles";
@@ -6,13 +6,13 @@ import MyText from "../MyText";
 
 function ExpensesSummary({ periodName, expenses }: ExpensesSummaryProps) {
   const expensesSum = expenses?.reduce((sum, expense) => {
-    return sum + (expense.amount ?? 0); // Use 0 if amount is undefined
+    return sum + Number(expense.amount ?? 0); // Convert amount to a number
   }, 0);
 
   return (
     <View style={styles.container}>
       <MyText style={styles.period}>{periodName}</MyText>
-      <MyText style={styles.sum}>${expensesSum?.toFixed(2)}</MyText>
+      <MyText style={styles.sum}>$ {Number(expensesSum).toFixed(2)}</MyText>
     </View>
   );
 }

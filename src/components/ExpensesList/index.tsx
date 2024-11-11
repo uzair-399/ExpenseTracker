@@ -13,7 +13,14 @@ type renderExpenseProps = {
 };
 
 function renderExpenseItem(itemData: renderExpenseProps) {
-  return <ExpenseItem {...itemData.item} />;
+  const expense = {
+    ...itemData.item,
+    date:
+      typeof itemData.item.date === "string"
+        ? new Date(itemData.item.date)
+        : itemData.item.date,
+  };
+  return <ExpenseItem {...expense} />;
 }
 
 function ExpensesList({ expenses }: ExpensesListProps) {

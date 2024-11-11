@@ -6,3 +6,7 @@ export function getFormattedDate(date?: Date) {
   const day = date.getDate().toString().padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
+
+export function dateMinusDays(date: Date = new Date(), days: number = 0) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - days);
+}

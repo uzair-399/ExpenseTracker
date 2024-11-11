@@ -1,17 +1,22 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React from "react";
 import ExpensesSummary from "../ExpensesSummary";
 
 import { ExpensesOutputProps } from "../../types";
 import ExpensesList from "../ExpensesList";
-import { DummyData } from "../../constants/DummyData";
 import { GlobalStyles } from "../../constants/styles";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { DummyData } from "../../constants/DummyData";
 
 function ExpensesOutput({ expensesPeriod }: ExpensesOutputProps) {
+  const fetchedExpense = useSelector(
+    (state: RootState) => state.expense.expenses
+  );
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={DummyData} periodName={expensesPeriod} />
-      <ExpensesList expenses={DummyData} />
+      <ExpensesSummary expenses={fetchedExpense} periodName={expensesPeriod} />
+      <ExpensesList expenses={fetchedExpense} />
     </View>
   );
 }

@@ -78,7 +78,6 @@ const styles = ({
       height: 45,
     },
     InputStyle: {
-      fontFamily: "Inter-Regular",
       width: password ? "90%" : "100%",
     },
   });

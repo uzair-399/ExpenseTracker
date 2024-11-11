@@ -5,10 +5,16 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamsList } from "../../types/navigationParams";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store"; // Import RootState type
-import { setEditing } from "../../app/ExpenseSlice";
+import {
+  addExpense,
+  setAmount,
+  setDate,
+  setDescription,
+  setEditing,
+} from "../../app/ExpenseSlice";
 import MyIcon from "../../components/MyIcon";
 import { GlobalStyles } from "../../constants/styles";
-import { MyButton } from "../../components";
+import { MyButton, MyInput } from "../../components";
 
 type ManageExpenseScreenRouteProp = RouteProp<
   RootStackParamsList,
@@ -28,7 +34,11 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const editedExpenseId = route.params?.expenseId;
   const isEditing = useSelector((state: RootState) => state.expense.isEditing); // Type the selector with RootState
-
+  const amount = useSelector((state: RootState) => state.expense.amount);
+  const description = useSelector(
+    (state: RootState) => state.expense.description
+  );
+  const date = useSelector((state: RootState) => state.expense.date);
   useLayoutEffect(() => {
     dispatch(setEditing(editedExpenseId));
     navigation.setOptions({
@@ -43,12 +53,35 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
   function cancelHandler() {
     navigation.goBack();
   }
-  function confirmHandler() {
-    navigation.goBack();
-  }
 
   return (
     <View style={styles.container}>
+      <View>
+        <MyInput
+          inputStyle={{ color: "white" }}
+          placeholder="Amount"
+          onChange={(text) => {
+            dispatch(setAmount(text));
+          }}
+          text={amount}
+        />
+        <MyInput
+          inputStyle={{ color: "white" }}
+          placeholder="Description"
+          onChange={(text) => {
+            dispatch(setDescription(text));
+          }}
+          text={description}
+        />
+        <MyInput
+          inputStyle={{ color: "white" }}
+          placeholder="Date"
+          onChange={(text) => {
+            dispatch(setDate(text));
+          }}
+          text={date}
+        />
+      </View>
       <View style={styles.btnContainer}>
         <MyButton
           mode="flat"
@@ -59,7 +92,9 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
         <MyButton
           style={styles.button}
           label={isEditing ? "Update" : "Add"}
-          onPress={() => confirmHandler()}
+          onPress={() => {
+            dispatch(addExpense());
+          }}
         />
       </View>
       {isEditing && (

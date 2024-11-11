@@ -43,7 +43,7 @@ function ExpenseItem({ id, description, date, amount }: ExpenseItemProps) {
         </View>
         <View style={styles.amountContainer}>
           <MyText weight="bold" textColor={GlobalStyles.colors.primary500}>
-            {amount?.toFixed(2)}
+            ${Number(amount)?.toFixed(2)}
           </MyText>
         </View>
       </View>
