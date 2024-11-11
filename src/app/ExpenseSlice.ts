@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getFormattedDate } from "../utils/date";
 
 // Define the Expense type
 type Expense = {
@@ -8,21 +9,20 @@ type Expense = {
   date: string; // Store date as a string
 };
 
-// Define the slice's state
 interface ExpenseState {
   expenses: Expense[];
   isEditing: boolean;
-  amount: number;
+  amount: string; // Change this to string
   description: string;
   date: string;
 }
 
 const initialState: ExpenseState = {
-  expenses: [], // Initialize as empty
+  expenses: [],
   isEditing: false,
-  amount: 0,
+  amount: "", // Initialize as an empty string
   description: "",
-  date: "", // Empty initial date
+  date: "",
 };
 
 const ExpenseSlice = createSlice({
@@ -32,7 +32,7 @@ const ExpenseSlice = createSlice({
     setEditing: (state, action: PayloadAction<boolean>) => {
       state.isEditing = action.payload;
     },
-    setAmount: (state, action: PayloadAction<number>) => {
+    setAmount: (state, action: PayloadAction<string>) => {
       state.amount = action.payload;
     },
     setDescription: (state, action: PayloadAction<string>) => {
@@ -41,19 +41,37 @@ const ExpenseSlice = createSlice({
     setDate: (state, action: PayloadAction<string>) => {
       state.date = action.payload;
     },
-    addExpense: (state) => {
-      const id = (Math.random() * 100).toString() + Math.random().toString();
-      const expense: Expense = {
-        id,
-        amount: state.amount,
-        description: state.description,
-        date: new Date(state.date).toISOString(), // Store date as an ISO string
-      };
-      state.expenses.push(expense);
-      state.amount = 0;
+    // In your ExpenseSlice
+    addExpense: (state, action) => {
+      if (state.isEditing) {
+        const index = state.expenses.findIndex(
+          (expense) => expense.id === action.payload
+        );
+        if (index !== -1) {
+          state.expenses[index] = {
+            ...state.expenses[index],
+            amount: parseFloat(state.amount), // Convert to number here
+            description: state.description,
+            date: state.date, // Already in YYYY-MM-DD format
+          };
+        } else {
+          console.log("empty");
+        }
+      } else {
+        const id = (Math.random() * 100).toString() + Math.random().toString();
+        const expense: Expense = {
+          id,
+          amount: parseFloat(state.amount), // Convert to number here
+          description: state.description,
+          date: state.date, // Store date in YYYY-MM-DD format
+        };
+        state.expenses.push(expense);
+      }
+      state.amount = "";
       state.description = "";
-      state.date = ""; // Reset date to empty string
+      state.date = "";
     },
+
     deleteExpense: (state, action) => {
       const index = state.expenses.findIndex(
         (expense) => expense.id === action.payload
@@ -61,6 +79,21 @@ const ExpenseSlice = createSlice({
       if (index !== -1) {
         state.expenses.splice(index, 1);
       }
+    },
+    updateExpense: (state, action: PayloadAction<string>) => {
+      const selectedExpense = state.expenses.find(
+        (expense) => expense.id === action.payload
+      );
+      if (selectedExpense) {
+        state.amount = selectedExpense.amount.toString(); // Convert to string for the state
+        state.description = selectedExpense.description;
+        state.date = selectedExpense.date;
+      }
+    },
+    cancelHandler: (state) => {
+      state.amount = "";
+      state.description = "";
+      state.date = "";
     },
   },
 });
@@ -72,5 +105,7 @@ export const {
   setDescription,
   addExpense,
   deleteExpense,
+  updateExpense,
+  cancelHandler,
 } = ExpenseSlice.actions;
 export default ExpenseSlice.reducer;

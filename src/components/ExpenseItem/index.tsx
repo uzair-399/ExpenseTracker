@@ -10,6 +10,8 @@ import {
   BottomTabParamsList,
   RootStackParamsList,
 } from "../../types/navigationParams";
+import { useDispatch } from "react-redux";
+import { updateExpense } from "../../app/ExpenseSlice";
 
 type ManageExpensepNavigationProps = NativeStackScreenProps<
   RootStackParamsList & BottomTabParamsList,
@@ -18,17 +20,20 @@ type ManageExpensepNavigationProps = NativeStackScreenProps<
 function ExpenseItem({ id, description, date, amount }: ExpenseItemProps) {
   const navigation =
     useNavigation<ManageExpensepNavigationProps["navigation"]>();
+  const dispatch = useDispatch();
   function expensePressHandler() {
-    navigation.navigate("ManageExpense", { expenseId: id });
+    if (id) {
+      dispatch(updateExpense(id));
+      navigation.navigate("ManageExpense", { expenseId: id });
+    }
   }
-
   return (
     <Pressable
       onPress={expensePressHandler}
       style={({ pressed }) => pressed && styles.pressed}
     >
       <View style={styles.expenseItem}>
-        <View>
+        <View style={styles.expenseDescription}>
           <MyText
             textColor={GlobalStyles.colors.primary50}
             size={16}
@@ -82,5 +87,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     minWidth: 80,
     height: 45,
+  },
+  expenseDescription: {
+    width: "72%",
   },
 });

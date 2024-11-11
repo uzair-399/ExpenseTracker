@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store"; // Import RootState type
 import {
   addExpense,
+  cancelHandler,
   deleteExpense,
   setAmount,
   setDate,
@@ -47,14 +48,6 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
     });
   }, [navigation, isEditing]);
 
-  function deleteExpenseHandler() {
-    navigation.goBack();
-  }
-
-  function cancelHandler() {
-    navigation.goBack();
-  }
-
   return (
     <View style={styles.container}>
       <View>
@@ -62,14 +55,13 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
           inputStyle={{ color: "white" }}
           placeholder="Amount"
           onChange={(text) => {
-            const amount = parseFloat(text); // Convert the input to a number
-            if (!isNaN(amount)) {
-              dispatch(setAmount(amount));
-            }
+            dispatch(setAmount(text)); // Now handles text directly as a string
           }}
-          text={amount}
+          text={amount} // No need to convert to string
         />
+
         <MyInput
+          multiline
           inputStyle={{ color: "white" }}
           placeholder="Description"
           onChange={(text) => {
@@ -91,13 +83,15 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
           mode="flat"
           label="Cancel"
           style={styles.button}
-          onPress={() => cancelHandler()}
+          onPress={() => {
+            dispatch(cancelHandler()), navigation.goBack();
+          }}
         />
         <MyButton
           style={styles.button}
           label={isEditing ? "Update" : "Add"}
           onPress={() => {
-            dispatch(addExpense()), navigation.goBack();
+            dispatch(addExpense(editedExpenseId)), navigation.goBack();
           }}
         />
       </View>
