@@ -5,18 +5,12 @@ import ExpensesSummary from "../ExpensesSummary";
 import { ExpensesOutputProps } from "../../types";
 import ExpensesList from "../ExpensesList";
 import { GlobalStyles } from "../../constants/styles";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
-import { DummyData } from "../../constants/DummyData";
 
-function ExpensesOutput({ expensesPeriod }: ExpensesOutputProps) {
-  const fetchedExpense = useSelector(
-    (state: RootState) => state.expense.expenses
-  );
+function ExpensesOutput({ expensesPeriod, expenses }: ExpensesOutputProps) {
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={fetchedExpense} periodName={expensesPeriod} />
-      <ExpensesList expenses={fetchedExpense} />
+      <ExpensesSummary expenses={expenses} periodName={expensesPeriod} />
+      <ExpensesList expenses={expenses} />
     </View>
   );
 }

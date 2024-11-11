@@ -45,7 +45,7 @@ export interface MyInputProps {
   label?: string;
   placeholder?: string;
   password?: boolean;
-  text?: string;
+  text?: string | number;
   onChange?: (val: string) => void;
   onChangeText?: (value: string) => void;
   width?: DimensionValue | undefined;
@@ -101,7 +101,7 @@ export type ExpensesSummaryProps = {
   expenses?: ExpenseItemProps[];
 };
 export type ExpensesOutputProps = {
-  expenses?: string[];
+  expenses?: ExpenseItemProps[];
   expensesPeriod?: string;
 };
 

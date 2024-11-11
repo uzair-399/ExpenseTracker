@@ -40,7 +40,7 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
   );
   const date = useSelector((state: RootState) => state.expense.date);
   useLayoutEffect(() => {
-    dispatch(setEditing(editedExpenseId));
+    dispatch(setEditing(!!editedExpenseId));
     navigation.setOptions({
       title: isEditing ? "Edit Expense" : "Add Expense",
     });
@@ -61,7 +61,10 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
           inputStyle={{ color: "white" }}
           placeholder="Amount"
           onChange={(text) => {
-            dispatch(setAmount(text));
+            const amount = parseFloat(text); // Convert the input to a number
+            if (!isNaN(amount)) {
+              dispatch(setAmount(amount));
+            }
           }}
           text={amount}
         />
