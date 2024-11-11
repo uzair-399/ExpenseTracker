@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store"; // Import RootState type
 import {
   addExpense,
+  deleteExpense,
   setAmount,
   setDate,
   setDescription,
@@ -96,7 +97,7 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
           style={styles.button}
           label={isEditing ? "Update" : "Add"}
           onPress={() => {
-            dispatch(addExpense());
+            dispatch(addExpense()), navigation.goBack();
           }}
         />
       </View>
@@ -106,7 +107,9 @@ const ManageExpense: React.FC<ManageExpenseProps> = ({ route, navigation }) => {
             name="trash"
             color={GlobalStyles.colors.error500}
             size={36}
-            onPress={() => deleteExpenseHandler()}
+            onPress={() =>
+              dispatch(deleteExpense(editedExpenseId), navigation.goBack())
+            }
           />
         </View>
       )}

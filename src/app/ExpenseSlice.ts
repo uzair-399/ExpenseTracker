@@ -54,9 +54,23 @@ const ExpenseSlice = createSlice({
       state.description = "";
       state.date = ""; // Reset date to empty string
     },
+    deleteExpense: (state, action) => {
+      const index = state.expenses.findIndex(
+        (expense) => expense.id === action.payload
+      );
+      if (index !== -1) {
+        state.expenses.splice(index, 1);
+      }
+    },
   },
 });
 
-export const { setEditing, setAmount, setDate, setDescription, addExpense } =
-  ExpenseSlice.actions;
+export const {
+  setEditing,
+  setAmount,
+  setDate,
+  setDescription,
+  addExpense,
+  deleteExpense,
+} = ExpenseSlice.actions;
 export default ExpenseSlice.reducer;

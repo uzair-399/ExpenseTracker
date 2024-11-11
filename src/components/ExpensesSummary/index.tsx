@@ -12,7 +12,7 @@ function ExpensesSummary({ periodName, expenses }: ExpensesSummaryProps) {
   return (
     <View style={styles.container}>
       <MyText style={styles.period}>{periodName}</MyText>
-      <MyText style={styles.sum}>$ {Number(expensesSum).toFixed(2)}</MyText>
+      <MyText style={styles.sum}>${Number(expensesSum).toFixed(2)}</MyText>
     </View>
   );
 }
