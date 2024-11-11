@@ -49,9 +49,11 @@ export interface MyInputProps {
   onChange?: (val: string) => void;
   onChangeText?: (value: string) => void;
   width?: DimensionValue | undefined;
+  height?: DimensionValue | undefined;
   style?: ViewStyle;
   placeholderColor?: string;
   inputStyle?: StyleProp<TextStyle>;
+  labelStyle?: string | StyleProp<TextStyle>;
   multiline?: boolean;
   leftchild?: React.ReactNode;
   keyboardType?: KeyboardTypeOptions;

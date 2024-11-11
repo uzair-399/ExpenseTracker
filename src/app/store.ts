@@ -15,7 +15,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
+  blacklist: ["isEditing", "amount", "description", "date"], // Blacklist fields that should not be persisted
 };
+
 const persistedReducer = persistReducer(persistConfig, expenseReducer);
 
 const store = configureStore({

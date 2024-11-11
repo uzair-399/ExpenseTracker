@@ -8,7 +8,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <RootNav />
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </Provider>
   );
 }

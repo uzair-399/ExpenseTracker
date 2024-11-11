@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import MyText from "../MyText";
+import { GlobalStyles } from "../../constants/styles";
 
 function MyInput({
   label,
@@ -21,6 +22,9 @@ function MyInput({
   inputStyle,
   placeholderColor,
   width,
+  height,
+  labelStyle,
+  keyboardType,
 }: MyInputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
@@ -28,13 +32,13 @@ function MyInput({
     <View style={[styles({ width }).container, style]}>
       {label && (
         <MyText
-          style={{ paddingLeft: 4, marginBottom: -6 }}
-          textColor="#888888"
+          style={[{ marginBottom: 2 }, labelStyle]}
+          textColor={GlobalStyles.colors.primary60}
         >
           {label}
         </MyText>
       )}
-      <View style={styles({}).inputContainer}>
+      <View style={styles({ height }).inputContainer}>
         <TextInput
           multiline={multiline}
           secureTextEntry={password ? (showPassword ? false : true) : false}
@@ -42,7 +46,12 @@ function MyInput({
           placeholderTextColor={placeholderColor ? placeholderColor : "#888888"}
           value={text!}
           onChangeText={(val): void => onChange?.(val)}
-          style={[inputStyle, styles({ width, password }).InputStyle]}
+          style={[
+            inputStyle,
+            styles({ width, password }).InputStyle,
+            multiline && { textAlignVertical: "top" }, // Align text to top when multiline is true
+          ]}
+          keyboardType={keyboardType}
         />
         {password && (
           <Pressable
@@ -59,23 +68,26 @@ function MyInput({
 const styles = ({
   width,
   password,
+  height,
 }: {
   width?: DimensionValue | undefined;
   password?: boolean;
+  height?: DimensionValue | undefined;
 }) =>
   StyleSheet.create({
     container: {
-      borderBottomColor: "#E4E4E4",
-      borderBottomWidth: 1,
       width: width ? width : "100%",
       paddingHorizontal: 10,
     },
     inputContainer: {
+      backgroundColor: GlobalStyles.colors.primary60,
+      borderRadius: 10,
       width: "100%",
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      height: 45,
+      height: height ? height : 50,
+      paddingHorizontal: 10,
     },
     InputStyle: {
       width: password ? "90%" : "100%",
